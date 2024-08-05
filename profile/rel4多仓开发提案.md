@@ -58,6 +58,8 @@ git subrepo clone https://github.com/rel4team/rel4_kernel -b mi_dev
                     └── arch
 ```
 
+其他仓库的同样按照 `git subrepo clone xxx` 方式引入，如果需要指定分支，使用 `-b branch` 指定。
+
 然后我们就可以按照单仓库的开发方式进行开发，且合并皆在一个仓库中。当我们需要将模块分发到独立的仓库中时，可调用 `git subrepo push`，即可更新远程仓库，如果远程仓库需要更新，则调用 `git subrepo pull` 更新本地目录。如果遇到冲突，则需要开发者手动按照 Git 方式合并。
 
 模块的 `push` 可以作为 `ci` 进行处理，而 `pull` 需要系统开发者自己执行，如果遇到冲突，由内核开发者自己解决。
