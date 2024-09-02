@@ -24,7 +24,7 @@ jobs:
       - name: install nodejs
         uses: actions/setup-node@v4
         with:
-          node-version: 'lts'
+          node-version: latest
       - name: install spider pkg and run
         run: |
           cd spider && npm install
