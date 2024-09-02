@@ -39,7 +39,8 @@ jobs:
 
           git switch os-checker
           echo "正在提交 spider/data.json 到 os-checker 分支"
-          git add spider/data.json
-          git commit -m "[bot] update spider/data.json"
-          git push
+          git status
+          # git add .
+          # git commit -m "[bot] update spider/data.json"
+          # git push
           echo 🎉
