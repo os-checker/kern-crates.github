@@ -22,13 +22,13 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: install nodejs
-        uses: actions/setup-node@v3.0.0
+        uses: actions/setup-node@v4
         with:
-          node-version: '18.x'
+          node-version: 'lts'
       - name: install spider pkg and run
         run: |
           cd spider && npm install
-          npm run start # the output: data.json
+          npm run start # the output: web/data.json
       - name: commit and push data.json
         run: |
           # author zjp-CN, and commiter bot
@@ -38,7 +38,8 @@ jobs:
           git config --global committer.email "zjp-CN[bot]@users.noreply.github.com"
 
           git switch os-checker
-          echo "正在提交 spider/data.json 到 os-checker 分支"
+          ls -alh web
+          # echo "正在提交 spider/data.json 到 os-checker 分支"
           git status
           # git add .
           # git commit -m "[bot] update spider/data.json"
