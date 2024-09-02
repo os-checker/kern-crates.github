@@ -7,7 +7,7 @@ on:
     - cron: '0 */1 * * *'
   push:
     branches:
-      - main
+      - os-checker
   workflow_dispatch:
 
 jobs:
@@ -19,4 +19,4 @@ jobs:
       - name: Testing Run
         run: python sync.py
         env:
-          GH_TOKEN: ${{ secrets.GH_CLI_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

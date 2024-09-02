@@ -4,12 +4,16 @@ name: GitHub Deploy Workflow
 
 permissions: write-all
 
+env:
+  TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
 on:
   schedule:
     - cron: '0 */1 * * *'
   push:
     branches:
-      - main
+      - os-checker
   workflow_dispatch:
 jobs:
   build:
@@ -24,19 +28,18 @@ jobs:
       - name: install spider pkg and run
         run: |
           cd spider && npm install
-          npm run start
-        env:
-          TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: build pages
+          npm run start # the output: data.json
+      - name: commit and push data.json
         run: |
-          cd web && npm install && npm run build
-          mv out ../build
-          cp data.json ../build/
-      - name: GitHub Pages
-        uses: crazy-max/ghaction-github-pages@v3.0.0
-        with:
-          target_branch: gh-pages
-          build_dir: build
-          jekyll: false
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # author zjp-CN, and commiter bot
+          git config --global user.name "zjp-CN"
+          git config --global user.email "jiping_zhou@foxmail.com"
+          git config --global committer.name "zjp-CN[bot]"
+          git config --global committer.email "zjp-CN[bot]@users.noreply.github.com"
+
+          git switch os-checker
+          echo "正在提交 spider/data.json 到 os-checker 分支"
+          git add spider/data.json
+          git commit -m "[bot] update spider/data.json"
+          git push
+          echo 🎉
