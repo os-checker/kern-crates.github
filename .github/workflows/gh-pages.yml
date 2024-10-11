@@ -41,9 +41,8 @@ jobs:
           cp web/data.json ./
 
           # os-checker 暂时只需要 "user/repo"
-          jq 'map(.repo)' data.json > array-of-repos.json
-
-          export stuff=array-of-repos.json
+          export stuff=repos-default.json
+          jq 'map(.repo) | sort | map({(.):{}}) | add' data.json > $stuff
 
           echo "正在提交 ${stuff} 到 os-checker 分支"
           git status
