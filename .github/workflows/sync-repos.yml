@@ -3,8 +3,8 @@
 name: Github Sync Repositories
 
 on:
-  # schedule:
-  #   - cron: '0 0/4 * * *'
+  schedule:
+    - cron: '0 0/4 * * *'
   push:
     branches:
       - os-checker
