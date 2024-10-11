@@ -9,8 +9,8 @@ env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 on:
-  schedule:
-    - cron: '0 */1 * * *'
+  # schedule:
+  #   - cron: '0 0/4 * * *'
   push:
     branches:
       - os-checker
