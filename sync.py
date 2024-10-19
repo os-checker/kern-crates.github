@@ -18,7 +18,8 @@ for line in f.readlines():
         "kern-crates/" + repo_name
     ], capture_output=True, text=True)
 
-    # If the repo not exists, fork it form remote.
+    print(sync_result.stderr)
+    # # If the repo not exists, fork it form remote.
     if sync_result.stderr.startswith("GraphQL: Could not resolve to a Repository with the name"):
         # fork the repository
         subprocess.run([

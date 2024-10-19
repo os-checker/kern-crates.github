@@ -63,6 +63,8 @@ Starry-OS/linux_syscall_api
 Starry-OS/arceos_posix_api
 Starry-OS/axfeat
 Starry-OS/Starry
+arceos-org/kspin
+arceos-org/axmm_crates
 shilei-massclouds/allocator
 shilei-massclouds/arch_boot
 shilei-massclouds/axalloc
