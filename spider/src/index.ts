@@ -250,6 +250,10 @@ async function handleResult(): Promise<OsModuleConfig[]> {
             let packageToml = load(Buffer.from(packageTomlContent, "base64").toString("utf-8")) as any;
             if (packageToml['package'] != null && packageToml['package'] != undefined) {
               let tomlConfig = packageToml['package'] as CargoTomlConfigPackage;
+              if (tomlConfig.documentation == undefined) {
+                console.log(`skip ${member} because of no documentation`);
+                continue;
+              }
               module_configs.push(handle_package_toml(tomlConfig, perRepo, workspaceConfig));
             }
           }
