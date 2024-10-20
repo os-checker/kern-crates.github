@@ -7,6 +7,8 @@ permissions: write-all
 env:
   TOKEN: ${{ secrets.GITHUB_TOKEN }}
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  # cache.redb tag in database release
+  TAG_CACHE: cache-v8.redb
 
 on:
   schedule:
@@ -44,9 +46,14 @@ jobs:
           export stuff=repos-default.json
           jq 'map(.repo) | sort | map({(.):{}}) | add' data.json > $stuff
 
+          # format
+          jq . data.json > kern-crate-repolist-data.json
+          gh release upload --clobber -R os-checker/database ${{ env.TAG_CACHE }} kern-crate-repolist-data.json
+
           echo "正在提交 ${stuff} 到 os-checker 分支"
           git status
           git add ${stuff}
           git commit -m "[bot] update ${stuff}"
+
           git push
           echo 🎉
