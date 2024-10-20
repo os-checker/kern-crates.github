@@ -8,6 +8,7 @@ env:
   TOKEN: ${{ secrets.GITHUB_TOKEN }}
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   # cache.redb tag in database release
+  GH_TOKEN: ${{ secrets.GH_TOKEN }}
   TAG_CACHE: cache-v8.redb
 
 on:
@@ -48,7 +49,9 @@ jobs:
 
           # format
           jq . data.json > kern-crate-repolist-data.json
+          echo "upload kern-crate-repolist-data.json"
           gh release upload --clobber -R os-checker/database ${{ env.TAG_CACHE }} kern-crate-repolist-data.json
+          echo "done: upload kern-crate-repolist-data.json"
 
           echo "正在提交 ${stuff} 到 os-checker 分支"
           git status
