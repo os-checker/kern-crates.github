@@ -1,6 +1,6 @@
 # Kernel crates that can be used in multiple Rust OSes
 
-[模块发布需求](/profile/module_requirement.md)
+[模块发布方式与需求](/profile/module_requirement.md)
 
 [模块列表](https://kern-crates.github.io/.github/)
 
@@ -56,10 +56,10 @@
 - 内核态测试：对于一些需要运行在内核态下的 crate，如 virtio、page_table 等，需要额外编写相关的内核态测例，并且起一个简单的 qemu 进行测试，可以参见：[virtio-driver](https://github.com/rcore-os/virtio-drivers/blob/master/.github/workflows/main.yml)
 - 内核集成测试：内核集成测试仅当内核本体更新的时候会在自身仓库触发测试，从而保证集成测试不会冗余，因此不在模块仓库的 CI 中涉及
 
-因此为了保证基本的测试覆盖，我们需要对于每一个模块编写各自的单元测试，测试最基本的内容。
+因此为了保证基本的测试覆盖，我们需要对于每一个模块编写各自的单元测试或集成测试，测试最基本的内容。
 
-- 单元测试规范详见：[单元测试 - 通过例子学 Rust 中文版](https://rustwiki.org/zh-CN/rust-by-example/testing/unit_testing.html)
-- 单元测试指令详见：[ci.yml](https://github.com/kern-crates/.github/blob/main/templates/.github/workflows/ci.yml#L26https://github.com/kern-crates/.github/blob/main/templates/.github/workflows/ci.yml#L26)
+- 测试规范详见：[测试 - 通过例子学 Rust 中文版](https://rustwiki.org/zh-CN/rust-by-example/testing.html)
+- 测试指令详见：[ci.yml](https://github.com/kern-crates/.github/blob/main/templates/.github/workflows/ci.yml#L26https://github.com/kern-crates/.github/blob/main/templates/.github/workflows/ci.yml#L26)
 
 
 ### 清晰易懂的引导说明
