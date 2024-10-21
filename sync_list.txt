@@ -89,4 +89,5 @@ seL4/rust-sel4
 guoweikang/osl
 qclic/fdt-parser
 qclic/e1000e-frame
+qclic/sparreal-os
 ZR233/arm-gic-driver
