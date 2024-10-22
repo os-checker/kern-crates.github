@@ -13,7 +13,6 @@
   "kern-crates/allocator": {},
   "kern-crates/arceos": {},
   "kern-crates/arceos-apps": {},
-  "kern-crates/arceos-staging": {},
   "kern-crates/arm_gic": {},
   "kern-crates/arm_gicv2": {},
   "kern-crates/arm_pl011": {},
