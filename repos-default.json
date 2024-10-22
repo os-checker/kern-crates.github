@@ -36,7 +36,7 @@
   "kern-crates/kspin": {},
   "kern-crates/lazyinit": {},
   "kern-crates/libc-test": {},
-  "kern-crates/linked_list": {},
+  "kern-crates/linked_list_r4l": {},
   "kern-crates/loongArch64": {},
   "kern-crates/lwext4": {},
   "kern-crates/memory_set": {},
