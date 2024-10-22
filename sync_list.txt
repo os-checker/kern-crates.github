@@ -19,7 +19,7 @@ arceos-org/crate_interface
 arceos-org/arceos-crates
 arceos-org/lazyinit
 arceos-org/arm_pl031
-arceos-org/arceos-staging
+arceos-org/arceos
 arceos-org/axfs_crates
 arceos-org/allocator
 arceos-org/axio

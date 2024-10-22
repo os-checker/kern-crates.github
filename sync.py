@@ -17,6 +17,7 @@ for line in f.readlines():
         "sync", 
         "kern-crates/" + repo_name
     ], capture_output=True, text=True)
+    print(sync_result.stderr)
     need_fork = sync_result.stderr.startswith("GraphQL: Could not resolve to a Repository with the name")
 
     if need_fork == False:
@@ -44,7 +45,7 @@ for line in f.readlines():
                 "delete", 
                 "kern-crates/" + repo_name, 
                 "--yes"
-            ])
+            ], capture_output=True, text=True)
             need_fork = True
 
     if need_fork:
