@@ -88,3 +88,13 @@ qclic/sparreal-os
 ZR233/arm-gic-driver
 ZR233/arm-pl011-rs
 ZR233/ostool
+arceos-hypervisor/arceos-umhv
+arceos-hypervisor/axvm
+arceos-hypervisor/axvcpu
+arceos-hypervisor/axdevice
+arceos-hypervisor/axaddrspace
+arceos-hypervisor/axdevice_crates
+arceos-hypervisor/x86_vcpu
+arceos-hypervisor/arm_vcpu
+arceos-hypervisor/riscv_vcpu
+arceos-hypervisor/arm_vgic
