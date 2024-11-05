@@ -35,6 +35,7 @@
   "kern-crates/cap_access": {},
   "kern-crates/cpumask": {},
   "kern-crates/crate_interface": {},
+  "kern-crates/doc": {},
   "kern-crates/dw_apb_uart": {},
   "kern-crates/elf_parser_rs": {},
   "kern-crates/flatten_objects": {},
