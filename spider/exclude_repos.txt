@@ -1,3 +1,5 @@
 kern-crates/.github
 kern-crates/docs
 kern-crates/testing
+kern-crates/doc
+kern-crates/kern-crates.github.io
