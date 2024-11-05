@@ -86,7 +86,7 @@
 ### 相关内核
 - [arceos unikernel](https://github.com/arceos-org/arceos)
 - [starry monolithickernel](https://github.com/arceos-org/starry-next)
-- [lkmodle componentkernel](https://github.com/shilei-massclouds/lkmodel)
+- [lkmodel componentkernel](https://github.com/shilei-massclouds/lkmodel)
 - [bytos monolithickernel](https://github.com/kern-crates/ByteOS)
 - [arceos-umhy hypervisor](https://github.com/arceos-hypervisor/arceos-umhv)
 - [sparreal rtos](https://github.com/qclic/sparreal-os)
