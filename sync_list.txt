@@ -7,7 +7,7 @@ elliott10/lwext4_rust
 arceos-org/kspin
 arceos-org/axmm_crates
 arceos-org/percpu
-arceos-org/linked_list
+arceos-org/linked_list_r4l
 arceos-org/arceos-apps
 arceos-org/scheduler
 arceos-org/cpumask
