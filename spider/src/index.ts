@@ -67,6 +67,17 @@ async function getRepoInfo(
   created_at: string | undefined | null,
   updated_at: string | undefined | null,
 ) {
+  // Judge if the repository is forked from other repository
+  let repoInfo = await octokit.rest.repos.get({
+    owner: owner,
+    repo: repo,
+  });
+
+  if (repoInfo.data.fork) {
+    // If the repository is forked from other repository, then get the parent repository information.
+    owner = repoInfo.data.parent?.owner.login ?? owner;
+  }
+
   console.log(`get ${owner}/${repo}`);
   let full_name = `${owner}/${repo}`;
 
