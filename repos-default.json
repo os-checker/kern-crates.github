@@ -110,6 +110,7 @@
   "shilei-massclouds/fileops": {},
   "shilei-massclouds/fork": {},
   "shilei-massclouds/fstree": {},
+  "shilei-massclouds/mm": {},
   "shilei-massclouds/mmap": {},
   "shilei-massclouds/mutex": {},
   "shilei-massclouds/page_table": {},
