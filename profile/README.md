@@ -82,3 +82,12 @@
 以下为 crates 仓库建设时可能用到的相关模板，供参考：
 - [CICD](../templates/.github/workflows)
 - [gitignore](../templates/.gitignore)
+
+### 相关内核
+- [arceos unikernel](https://github.com/arceos-org/arceos)
+- [starry monolithickernel](https://github.com/arceos-org/starry-next)
+- [lkmodel componentkernel](https://github.com/shilei-massclouds/lkmodel)
+- [bytos monolithickernel](https://github.com/kern-crates/ByteOS)
+- [arceos-umhy hypervisor](https://github.com/arceos-hypervisor/arceos-umhv)
+- [sparreal rtos](https://github.com/qclic/sparreal-os)
+- [zcore microkernel](https://github.com/kern-crates/zCore)
