@@ -28,6 +28,7 @@
   "kern-crates/axdriver_crates": {},
   "kern-crates/axerrno": {},
   "kern-crates/axfs_crates": {},
+  "kern-crates/axhal_split": {},
   "kern-crates/axio": {},
   "kern-crates/axmm_crates": {},
   "kern-crates/axprocess": {},
