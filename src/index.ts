@@ -22,7 +22,6 @@ async function main() {
     repositories(last: 10) {
       nodes {
         name
-        isFork
         parent {
           owner {
             login
@@ -39,12 +38,11 @@ async function main() {
       repositories: {
         nodes: {
           name: string,
-          isFork: boolean,
           parent: null | { owner: { login: string }, name: string }
         }[]
       }
     }
-  }>(query, { org: "os-checker" });
+  }>(query, { org: "zjp-CN" });
   log(organization);
   log(organization.repositories.nodes);
 }
