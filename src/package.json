@@ -2,11 +2,9 @@
   "name": "gen-list",
   "version": "0.1.0",
   "type": "module",
-  "exports": "index.js",
   "description": "Generate a list of repositories from sync_list.txt and kern-crates org.",
   "scripts": {
-    "build": "tsc",
-    "start": "ts-node index.js"
+    "start": "tsx index.ts"
   },
   "repository": {
     "type": "git",
@@ -19,12 +17,12 @@
   },
   "homepage": "https://github.com/kern-crates/.github#readme",
   "dependencies": {
-    "@types/node": "^22.9.3",
-    "octokit": "^4.0.2",
-    "typescript": "^5.7.2"
+    "octokit": "^4.0.2"
   },
   "devDependencies": {
-    "ts-node": "latest"
+    "@types/node": "^22.9.3",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2"
   },
   "ts-node": {
     "transpileOnly": true,
