@@ -1,0 +1,19 @@
+{
+  "name": "gen-list",
+  "version": "0.1.0",
+  "description": "Generate a list of repositories from sync_list.txt and kern-crates org.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kern-crates/.github.git"
+  },
+  "author": "周积萍",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kern-crates/.github/issues"
+  },
+  "homepage": "https://github.com/kern-crates/.github#readme"
+}
