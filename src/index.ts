@@ -17,19 +17,18 @@ async function main() {
 
   log(login);
 
-  const query = `query ($login: String!) {
+  const query = `query ($login: String!, $num: Int = 100, $cursor: String) {
   repositoryOwner(login: $login) {
-    repositories(last: 5) {
+    repositories(first: $num, after: $cursor) {
       totalCount
       nodes {
         name
         parent {
-          owner {
-            login
-          }
+          owner { login }
           name
         }
       }
+      pageInfo { hasNextPage endCursor }
     }
   }
 }`;
@@ -46,7 +45,7 @@ async function main() {
     }
   };
 
-  const { repositoryOwner } = await octokit.graphql<QueryRepos>(query, { login: "zjp-CN" });
+  const { repositoryOwner } = await octokit.graphql.paginate<QueryRepos>(query, { login: "zjp-CN" });
   log(repositoryOwner);
   log(repositoryOwner.repositories.nodes);
 }
