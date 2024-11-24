@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/kern-crates/.github#readme",
   "dependencies": {
+    "octokit": "^4.0.2",
     "typescript": "^5.7.2"
   }
 }
