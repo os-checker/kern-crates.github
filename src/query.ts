@@ -1,5 +1,6 @@
-//*
-//
+/**
+ * `GH_TOKEN` or `GITHUB_TOKEN`.
+*/
 export function gh_token() {
   const token = process.env.GH_TOKEN ?? process.env.GITHUB_TOKEN;
   if (!token) {

@@ -6,7 +6,9 @@ async function main() {
 
   const {
     viewer: { login },
-  } = await octokit.graphql(`{
+  } = await octokit.graphql<{
+    viewer: { login: string }
+  }>(`{
   viewer {
     login
   }
