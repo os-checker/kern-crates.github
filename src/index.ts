@@ -17,9 +17,10 @@ async function main() {
 
   log(login);
 
-  const query = `query ($org: String!) {
-  organization(login: $org) {
-    repositories(last: 10) {
+  const query = `query ($login: String!) {
+  repositoryOwner(login: $login) {
+    repositories(last: 5) {
+      totalCount
       nodes {
         name
         parent {
@@ -33,18 +34,21 @@ async function main() {
   }
 }`;
 
-  const { organization } = await octokit.graphql<{
-    organization: {
+  type QueryRepos = {
+    repositoryOwner: {
       repositories: {
+        totalCount: number,
         nodes: {
           name: string,
           parent: null | { owner: { login: string }, name: string }
         }[]
       }
     }
-  }>(query, { org: "zjp-CN" });
-  log(organization);
-  log(organization.repositories.nodes);
+  };
+
+  const { repositoryOwner } = await octokit.graphql<QueryRepos>(query, { login: "zjp-CN" });
+  log(repositoryOwner);
+  log(repositoryOwner.repositories.nodes);
 }
 
 main();
