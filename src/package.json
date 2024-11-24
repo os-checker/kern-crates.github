@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/kern-crates/.github/issues"
   },
-  "homepage": "https://github.com/kern-crates/.github#readme"
+  "homepage": "https://github.com/kern-crates/.github#readme",
+  "dependencies": {
+    "typescript": "^5.7.2"
+  }
 }
