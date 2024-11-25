@@ -29,7 +29,7 @@ export function gen_owned_repos(owner: string, repos: query.RepositoryOwner): Ow
  * any non_owned matches against repo_in_sync_list => need syncing
  * all non_owned don't match against repo_in_sync_list: UserRepo => need forking
  */
-export function sync_or_fork(sync_list: UserRepo[], owned_repos: OwnedRepo[], owner: string) {
+export function sync_or_fork(sync_list: UserRepo[], exclude_list: UserRepo[], owned_repos: OwnedRepo[], owner: string) {
   const non_onwed = owned_repos.map(val => val.non_owned);
   let repos: string[] = [];
 
@@ -63,7 +63,14 @@ export function sync_or_fork(sync_list: UserRepo[], owned_repos: OwnedRepo[], ow
     }
   }
 
-  return [... new Set(repos)].sort();
+  let set = new Set(repos);
+
+  // remove repos from exclude_list
+  for (const exclude of exclude_list) {
+    set.delete(to_string(exclude));
+  }
+
+  return [...set].sort();
 }
 
 function do_sync(owned: UserRepo) {
