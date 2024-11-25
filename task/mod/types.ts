@@ -116,9 +116,12 @@ function do_(cmd: string) {
       handleExecOutput(cmd, err, err.stdout, err.stderr);
     }
 
-    console.timeEnd(cmd);
-    return success;
+  } else {
+    log(chalk.gray(`\n[fake exec] ${cmd}`));
   }
+
+  console.timeEnd(cmd);
+  return success;
 }
 
 function handleExecOutput(cmd: string, error: any, stdout: string, stderr: string) {
