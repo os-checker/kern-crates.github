@@ -8,8 +8,9 @@ on:
       - refactor
   workflow_dispatch:
 
+permissions: write-all
+
 jobs:
-  permissions: write-all
   run:
     runs-on: ubuntu-latest
     steps:
