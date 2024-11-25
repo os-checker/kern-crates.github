@@ -1,22 +1,35 @@
-name: Sync, Fork and Generate A List Of Repo
+name: Sync, Fork and Generate Repo List
 
 on:
-  # schedule:
-  #   - cron: '0 0 * * *'
+  schedule:
+    - cron: '0 0/3 * * *'
   push:
     branches:
       - main
   workflow_dispatch:
+
+env:
+  GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
 jobs:
   run:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - name: Run index.ts
-        run: cd task && npm install && npm run start && ls -alh
         env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
           FORCE_COLOR: 3
           TEST: false
           EXECUTE: true
+        run: cd task && npm install && npm run start
+
+      - name: Upload repo_list JSONs
+        env:
+          tag: v0.2.0
+          files: repo_list.json repo_list_raw.json
+        run: |
+          cd task
+          ls -alh
+          gh release upload ${{ env.tag }} --clobber -R kern-crates/.github ${{ env.files }}
+          echo ${{ env.files }} "uploaded."
