@@ -6,6 +6,7 @@ on:
   push:
     branches:
       - refactor
+  workflow_dispatch:
 
 jobs:
   run:
