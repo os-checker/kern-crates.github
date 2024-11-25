@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/kern-crates/.github#readme",
   "dependencies": {
+    "chalk": "^5.3.0",
     "octokit": "^4.0.2"
   },
   "devDependencies": {

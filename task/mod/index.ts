@@ -1,4 +1,5 @@
 import { Octokit } from "octokit";
+import chalk from 'chalk';
 import { log } from "node:console";
 import * as query from "./query.ts";
 import { read_sync_list } from "./sync_list.ts";
@@ -81,19 +82,19 @@ function do_fork(owner: string, outer: UserRepo) {
 function do_(cmd: string) {
   console.time(cmd);
   if (process.env.EXECUTE === "true") {
-    log(`[real exec] ${cmd}`);
+    log(chalk.yellow(`[real exec] ${cmd}`));
     exec(cmd, (error, stdout, stderr) => handleExecOutput(cmd, error, stdout, stderr));
   } else {
-    log(`[fake exec] ${cmd}`);
+    log(chalk.gray(`[fake exec] ${cmd}`));
   }
   console.timeEnd(cmd);
 }
 
 function handleExecOutput(cmd: string, error: ExecException | null, stdout: string, stderr: string) {
   if (stdout) { log(`${cmd} [stdout]: ${stdout}`); }
-  if (stderr) { console.error(`${cmd} stderr: ${stderr}`); }
+  // if (stderr) { console.error(`${cmd} stderr: ${stderr}`); }
   if (error) {
-    console.error(`${cmd} 执行出错: ${error}`);
+    console.error(chalk.bgRed(`${cmd} 执行出错:\n`) + chalk.red(`${stderr}`));
     return;
   }
 }
