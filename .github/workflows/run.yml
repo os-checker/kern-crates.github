@@ -9,6 +9,7 @@ on:
   workflow_dispatch:
 
 jobs:
+  permissions: write-all
   run:
     runs-on: ubuntu-latest
     steps:
