@@ -1,0 +1,23 @@
+name: Sync, Fork and Generate A List Of Repo
+
+on:
+  # schedule:
+  #   - cron: '0 0 * * *'
+  push:
+    branches:
+      - refactor
+  workflow_dispatch:
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run index.ts
+        run: cd task && npm install && npm run start
+        env:
+          # GH_TOKEN: ${{ secrets.GH_CLI_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
+          FORCE_COLOR: 3
+          TEST: true
+          EXECUTE: true
