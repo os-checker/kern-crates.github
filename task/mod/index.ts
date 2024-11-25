@@ -15,13 +15,9 @@ async function main() {
     viewer: { login },
   } = await octokit.graphql<{
     viewer: { login: string }
-  }>(`{
-  viewer {
-    login
-  }
-}`);
+  }>(`{ viewer { login } }`);
 
-  log(login);
+  log("login:", login);
 
   const owner = "kern-crates";
   const { repositoryOwner } = await octokit.graphql.paginate<query.Repos>(
