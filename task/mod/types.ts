@@ -8,6 +8,10 @@ export type UserRepo = {
   repo: string,
 }
 
+function to_string(user_repo: UserRepo) {
+  return `${user_repo.user}/${user_repo.repo}`;
+}
+
 export type OwnedRepo = {
   owned: UserRepo,
   non_owned: null | UserRepo,
@@ -27,42 +31,77 @@ export function gen_owned_repos(owner: string, repos: query.RepositoryOwner): Ow
  */
 export function sync_or_fork(sync_list: UserRepo[], owned_repos: OwnedRepo[], owner: string) {
   const non_onwed = owned_repos.map(val => val.non_owned);
+  let repos: string[] = [];
 
   for (const outer of sync_list) {
+    const repo_name = to_string(outer);
     const pos = non_onwed.findIndex(val => val?.user === outer.user && val.repo === outer.repo);
+
     if (pos === -1) {
       // need forking
-      do_fork(owner, outer);
+      if (do_fork(owner, outer)) {
+        repos.push(repo_name);
+      } else {
+        console.error(chalk.bgRed(`${repo_name} is not forked.`));
+      }
     } else {
       // need syncing
-      do_sync(owned_repos[pos].owned);
+      if (do_sync(owned_repos[pos].owned)) {
+        repos.push(repo_name);
+      } else {
+        console.error(chalk.bgRed(`${repo_name} is not synced.`));
+      }
     }
   }
+
+  // generate source repo list
+  for (const repo of owned_repos) {
+    if (repo.non_owned) {
+      repos.push(to_string(repo.non_owned));
+    } else {
+      repos.push(to_string(repo.owned));
+    }
+  }
+
+  return [... new Set(repos)].sort();
 }
 
 function do_sync(owned: UserRepo) {
   // Sync remote fork from its parent
   // src: https://cli.github.com/manual/gh_repo_sync
   const cmd = `gh repo sync ${owned.user}/${owned.repo}`;
-  do_(cmd);
+  return do_(cmd);
 }
 
 function do_fork(owner: string, outer: UserRepo) {
   // gh repo fork non_owned --org kern-crates --default-branch-only
   // src: https://cli.github.com/manual/gh_repo_fork
   const cmd = `gh repo fork ${outer.user}/${outer.repo} --org ${owner} --default-branch-only`;
-  do_(cmd);
+  return do_(cmd);
 }
 
 function do_(cmd: string) {
+  let success = true;
   console.time(cmd);
+
   if (process.env.EXECUTE === "true") {
     log(chalk.yellow(`[real exec] ${cmd}`));
-    exec(cmd, (error, stdout, stderr) => handleExecOutput(cmd, error, stdout, stderr));
+
+    const child = exec(cmd, (error, stdout, stderr) => handleExecOutput(cmd, error, stdout, stderr));
+
+    if (child.exitCode === null) {
+      log(cmd, ": is still running");
+      success = false;
+    } else if (child.exitCode !== 0) {
+      log(cmd, ": exited with", child.exitCode);
+      success = false;
+    }
   } else {
     log(chalk.gray(`[fake exec] ${cmd}`));
   }
+
   console.timeEnd(cmd);
+  return success;
 }
 
 function handleExecOutput(cmd: string, error: ExecException | null, stdout: string, stderr: string) {

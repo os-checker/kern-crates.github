@@ -3,6 +3,7 @@ import { log } from "node:console";
 import * as query from "./query.ts";
 import { read_sync_list } from "./sync_list.ts";
 import { gen_owned_repos, sync_or_fork } from "./types.ts";
+import { writeFile } from "node:fs/promises";
 
 async function main() {
 
@@ -28,7 +29,9 @@ async function main() {
 
   const owned_repos = gen_owned_repos(owner, repositoryOwner);
 
-  sync_or_fork(sync_list, owned_repos, owner);
+  const repo_list = sync_or_fork(sync_list, owned_repos, owner);
+  log("repo_list.length =", repo_list.length);
+  await writeFile("repo_list.json", JSON.stringify(repo_list));
 
 }
 
