@@ -16,9 +16,7 @@ jobs:
       - name: Run index.ts
         run: cd task && npm install && npm run start && ls -alh
         env:
-          # GH_TOKEN: ${{ secrets.GH_CLI_TOKEN }}
-          # GH_TOKEN: ${{ github.token }} # this throws an error even with write-all permissions
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
           FORCE_COLOR: 3
-          TEST: true
+          TEST: false
           EXECUTE: true

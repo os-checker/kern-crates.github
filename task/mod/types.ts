@@ -92,8 +92,7 @@ function do_(cmd: string) {
     log(chalk.yellow(`\n[real exec] ${cmd}`));
 
     try {
-      const buffer = execSync(cmd, { stdio: 'inherit' });
-      log(buffer);
+      execSync(cmd, { stdio: 'inherit' });
     } catch (error) {
       success = false;
       let err: any = error;
