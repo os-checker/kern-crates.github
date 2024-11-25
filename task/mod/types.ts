@@ -101,6 +101,8 @@ function do_fork(owner: string, outer: UserRepo, target: string) {
 // nothing is captured in the callback.
 //
 // But we can use inherit stdio to capture the gh output.
+//
+// We use execSync on purpose, in case that APIs are sending too fast to hit the Github limit.
 function do_(cmd: string, target: string) {
   let success = true;
   console.time(cmd);
