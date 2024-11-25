@@ -4,7 +4,8 @@
   "type": "module",
   "description": "Generate a list of repositories from sync_list.txt and kern-crates org.",
   "scripts": {
-    "start": "tsx index.ts"
+    "start": "tsx mod/index.ts",
+    "test": "TEST=true tsx mod/index.ts"
   },
   "repository": {
     "type": "git",

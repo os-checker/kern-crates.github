@@ -5,7 +5,7 @@ import { type UserRepo } from "./types.ts";
  * Returns path to `sync_list.txt`, or `sync_list_test.txt` if `TEST` is set.
  * */
 function sync_list_txt() {
-  return (process.env.TEST === "true") ? "sync_list_test.txt" : "../sync_list.txt";
+  return (process.env.TEST === "true") ? "test/sync_list_test.txt" : "../sync_list.txt";
 }
 
 export async function read_sync_list(): Promise<UserRepo[]> {
