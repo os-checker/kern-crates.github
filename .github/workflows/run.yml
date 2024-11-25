@@ -19,7 +19,8 @@ jobs:
         run: cd task && npm install && npm run start
         env:
           # GH_TOKEN: ${{ secrets.GH_CLI_TOKEN }}
-          GH_TOKEN: ${{ github.token }}
+          # GH_TOKEN: ${{ github.token }}
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
           FORCE_COLOR: 3
           TEST: true
           EXECUTE: true
