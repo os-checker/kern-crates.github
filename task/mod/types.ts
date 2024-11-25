@@ -46,14 +46,14 @@ export function sync_or_fork(sync_list: UserRepo[], exclude_list: UserRepo[], ow
       if (do_fork(owner, outer)) {
         repos.push(repo_name);
       } else {
-        console.error(chalk.bgRed(`${repo_name} is not forked.`));
+        throw new Error(chalk.bgRed(`${repo_name} is not forked.`));
       }
     } else {
       // need syncing
       if (do_sync(owned_repos[pos].owned)) {
         repos.push(repo_name);
       } else {
-        console.error(chalk.bgRed(`${repo_name} is not synced.`));
+        throw new Error(chalk.bgRed(`${repo_name} is not synced.`));
       }
     }
   }
