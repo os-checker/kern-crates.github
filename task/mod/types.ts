@@ -43,14 +43,14 @@ export function sync_or_fork(sync_list: UserRepo[], exclude_list: UserRepo[], ow
 
     if (pos === -1) {
       // need forking
-      if (do_fork(owner, outer)) {
+      if (do_fork(owner, outer, repo_name)) {
         repos.push(repo_name);
       } else {
         throw new Error(chalk.bgRed(`${repo_name} is not forked.`));
       }
     } else {
       // need syncing
-      if (do_sync(owned_repos[pos].owned)) {
+      if (do_sync(owned_repos[pos].owned, repo_name)) {
         repos.push(repo_name);
       } else {
         throw new Error(chalk.bgRed(`${repo_name} is not synced.`));
@@ -83,30 +83,30 @@ export function sync_or_fork(sync_list: UserRepo[], exclude_list: UserRepo[], ow
   return [...set].sort();
 }
 
-function do_sync(owned: UserRepo) {
+function do_sync(owned: UserRepo, target: string) {
   // Sync remote fork from its parent
   // src: https://cli.github.com/manual/gh_repo_sync
   const cmd = `gh repo sync ${owned.user}/${owned.repo}`;
-  return do_(cmd);
+  return do_(cmd, target);
 }
 
-function do_fork(owner: string, outer: UserRepo) {
+function do_fork(owner: string, outer: UserRepo, target: string) {
   // gh repo fork non_owned --org kern-crates --default-branch-only
   // src: https://cli.github.com/manual/gh_repo_fork
   const cmd = `gh repo fork ${outer.user}/${outer.repo} --org ${owner} --default-branch-only`;
-  return do_(cmd);
+  return do_(cmd, target);
 }
 
 // gh CLI writes data to TTY but not to pipe, so even if we get output from terminal,
 // nothing is captured in the callback.
 //
 // But we can use inherit stdio to capture the gh output.
-function do_(cmd: string) {
+function do_(cmd: string, target: string) {
   let success = true;
   console.time(cmd);
 
   if (process.env.EXECUTE === "true") {
-    log(chalk.yellow(`\n[real exec] ${cmd}`));
+    log(chalk.yellow(`\n[real exec] [${target}] ${cmd}`));
 
     try {
       execSync(cmd, { stdio: 'inherit' });
@@ -117,7 +117,7 @@ function do_(cmd: string) {
     }
 
   } else {
-    log(chalk.gray(`\n[fake exec] ${cmd}`));
+    log(chalk.gray(`\n[fake exec] [${target}] ${cmd}`));
   }
 
   console.timeEnd(cmd);
