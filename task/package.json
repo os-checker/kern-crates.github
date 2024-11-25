@@ -4,8 +4,8 @@
   "type": "module",
   "description": "Sync, fork and generate a list of repositories in kern-crates org.",
   "scripts": {
-    "start": "tsx mod/index.ts",
-    "test": "TEST=true tsx mod/index.ts"
+    "start": "tsx src/index.ts",
+    "test": "TEST=true tsx src/index.ts"
   },
   "repository": {
     "type": "git",
