@@ -1,7 +1,8 @@
 import { Octokit } from "octokit";
 import { log } from "node:console";
 import * as query from "./query.ts";
-import { readFile } from "node:fs/promises";
+import { read_sync_list } from "./sync_list.ts";
+import type { UserRepo, OwnedRepo } from "./types.ts";
 import { exec, ExecException } from "node:child_process";
 
 async function main() {
@@ -34,28 +35,6 @@ async function main() {
 
   sync_or_fork(sync_list, owned_repos, owner);
 
-}
-
-type UserRepo = {
-  user: string,
-  repo: string,
-}
-
-async function read_sync_list(): Promise<UserRepo[]> {
-  const sync_list = await readFile("../sync_list.txt");
-  return sync_list.toString("utf-8").trim().split("\n").map(line => {
-    const [user, repo] = line.split("/").map(word => word.trim());
-    if (!user) { throw new Error(`No user in \`${line}\`.`); }
-    if (!repo) { throw new Error(`No repo in \`${line}\`.`); }
-    return { user, repo };
-  });
-}
-
-// FIXME: implement exclude list
-
-type OwnedRepo = {
-  owned: UserRepo,
-  non_owned: null | UserRepo,
 }
 
 function gen_owned_repos(owner: string, repos: query.RepositoryOwner): OwnedRepo[] {
