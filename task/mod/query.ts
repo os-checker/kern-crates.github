@@ -1,10 +1,10 @@
 /**
- * `GH_TOKEN` or `GITHUB_TOKEN`.
+ * `GH_TOKEN` used for API query and gh CLI.
 */
 export function gh_token() {
-  const token = process.env.GH_TOKEN ?? process.env.GITHUB_TOKEN;
+  const token = process.env.GH_TOKEN;
   if (!token) {
-    throw new Error("请提供 GH_TOKEN 或者 GITHUB_TOKEN，比如 `GH_TOKEN: ${{ github.token }}`");
+    throw new Error("请设置和提供 GH_TOKEN，比如 `GH_TOKEN: ${{ secrets.GH_TOKEN }}`");
   }
   return token;
 }
