@@ -30,7 +30,7 @@ async function main() {
   const owned_repos = gen_owned_repos(owner, repositoryOwner);
 
   const repo_list = sync_or_fork(sync_list, owned_repos, owner);
-  log("repo_list.length =", repo_list.length);
+  log("\nrepo_list.length =", repo_list.length);
   await writeFile("repo_list.json", JSON.stringify(repo_list, null, 2));
   await writeFile("repo_list_raw.json", JSON.stringify({ sync_list, owner, owned_repos }, null, 2));
 
