@@ -58,6 +58,12 @@ export function sync_or_fork(sync_list: UserRepo[], exclude_list: UserRepo[], ow
     }
   }
 
+  // 如何处理不在 sync_list 中的 forked 仓库？
+  // 当前不处理这些未在 sync_list 的 forked 仓库，以防止父仓库清空或者删除等操作造成备份仓库失效。
+  // sync_list 存在的意义就是同步仓库，当第一次同步该仓库时，fork 它到 kern-crates。
+  // 如果仓库不再处于 sync_list，那么有理由认为处于某种原因不 sync 它 —— 因此不处理是合理的。
+  // 如果意外把一个仓库从 sync_list 中移除了，把它添加回 sync_list 即可。
+
   // generate source repo list
   for (const repo of owned_repos) {
     if (repo.non_owned) {
