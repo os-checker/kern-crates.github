@@ -7,10 +7,10 @@ import { writeFile } from "node:fs/promises";
 
 async function main() {
 
-  const exclude_list = await read_exclude_list();
+  const exclude_list = read_exclude_list();
   log("exclude_list", exclude_list);
 
-  const sync_list = await read_sync_list();
+  const sync_list = read_sync_list();
   log("sync_list", sync_list);
 
   const octokit = new Octokit({ auth: query.gh_token() });
@@ -27,8 +27,6 @@ async function main() {
   const { repositoryOwner } = await octokit.graphql.paginate<query.Repos>(
     query.repos, { login: owner }
   );
-  // log(repositoryOwner);
-  // log(repositoryOwner.repositories.nodes);
 
   const owned_repos = gen_owned_repos(owner, repositoryOwner);
 
