@@ -1,9 +1,9 @@
 import { Octokit } from "octokit";
 import { log } from "node:console";
 import * as query from "./query.ts";
-import { read_exclude_list, read_sync_list } from "./sync_list.ts";
+import { writeFileSync } from "node:fs";
 import { gen_owned_repos, sync_or_fork } from "./types.ts";
-import { writeFile } from "node:fs/promises";
+import { read_exclude_list, read_sync_list } from "./sync_list.ts";
 
 async function main() {
 
@@ -32,9 +32,10 @@ async function main() {
 
   const repo_list = sync_or_fork(sync_list, exclude_list, owned_repos, owner);
   log("\nrepo_list.length =", repo_list.length);
-  await writeFile("repo_list.json", JSON.stringify(repo_list, null, 2));
-  await writeFile("repo_list_raw.json", JSON.stringify({ sync_list, exclude_list, owner, owned_repos }, null, 2));
+
+  writeFileSync("repo_list.json", JSON.stringify(repo_list, null, 2));
+  writeFileSync("repo_list_raw.json", JSON.stringify({ sync_list, exclude_list, owner, owned_repos }, null, 2));
 
 }
 
-main().then(() => log("Main thread done.")).catch(err => console.error(err));
+main().then(() => log("\nMain thread done.")).catch(err => console.error(err));
