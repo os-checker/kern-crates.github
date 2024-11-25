@@ -91,11 +91,15 @@ function do_(cmd: string) {
 }
 
 function handleExecOutput(cmd: string, error: ExecException | null, stdout: string, stderr: string) {
+  // gh CLI writes data to TTY but not to pipe, so even if we get output from terminal,
+  // nothing is captured in the callba the callback.
+  // See https://stackoverflow.com/questions/72731726/how-do-i-capture-output-of-the-following-command-gh-workflow-run-id
+  // and https://stackoverflow.com/questions/78316928/gh-has-different-output-when-captured-with-python-subprocess-run
   if (stdout) { log(`${cmd} [stdout]: ${stdout}`); }
-  // if (stderr) { console.error(`${cmd} stderr: ${stderr}`); }
   if (error) {
     console.error(chalk.bgRed(`${cmd} 执行出错:\n`) + chalk.red(`${stderr}`));
-    return;
+  } else if (stderr) {
+    console.error(`${cmd} [stderr]: ${stderr}`);
   }
 }
 
