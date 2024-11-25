@@ -28,6 +28,10 @@ export function gen_owned_repos(owner: string, repos: query.RepositoryOwner): Ow
 /**
  * any non_owned matches against repo_in_sync_list => need syncing
  * all non_owned don't match against repo_in_sync_list: UserRepo => need forking
+ *
+ * 返回值为一个字符串数组，它为 kern-crates 组织中的所有仓库名称，按照 `user/repo` 格式，但注意：
+ * 1. 当仓库是 forked 产生的，那么仓库名称指向父仓库，而不是 kern-crates
+ * 2. 该列表排除了来自 exclude_list.txt 中的仓库；由于上一条，对于 forked 仓库，exclude_list 应指定为它的父仓库
  */
 export function sync_or_fork(sync_list: UserRepo[], exclude_list: UserRepo[], owned_repos: OwnedRepo[], owner: string) {
   const non_onwed = owned_repos.map(val => val.non_owned);

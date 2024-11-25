@@ -35,7 +35,7 @@ async function main() {
   const repo_list = sync_or_fork(sync_list, exclude_list, owned_repos, owner);
   log("\nrepo_list.length =", repo_list.length);
   await writeFile("repo_list.json", JSON.stringify(repo_list, null, 2));
-  await writeFile("repo_list_raw.json", JSON.stringify({ sync_list, owner, owned_repos }, null, 2));
+  await writeFile("repo_list_raw.json", JSON.stringify({ sync_list, exclude_list, owner, owned_repos }, null, 2));
 
 }
 
