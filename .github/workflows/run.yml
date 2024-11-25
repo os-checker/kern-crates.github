@@ -19,3 +19,4 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           FORCE_COLOR: 3
           TEST: true
+          EXECUTE: true
