@@ -1,7 +1,7 @@
 {
   "include": [
-    "mod/**.js",
-    "mod/**.ts"
+    "src/**.js",
+    "src/**.ts"
   ],
   "exclude": [
     "node_modules"
