@@ -1,8 +1,8 @@
 {
-  "name": "gen-list",
+  "name": "task",
   "version": "0.1.0",
   "type": "module",
-  "description": "Generate a list of repositories from sync_list.txt and kern-crates org.",
+  "description": "Sync, fork and generate a list of repositories in kern-crates org.",
   "scripts": {
     "start": "tsx mod/index.ts",
     "test": "TEST=true tsx mod/index.ts"
