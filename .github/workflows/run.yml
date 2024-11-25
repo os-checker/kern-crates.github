@@ -8,8 +8,6 @@ on:
       - refactor
   workflow_dispatch:
 
-permissions: write-all
-
 jobs:
   run:
     runs-on: ubuntu-latest
@@ -19,7 +17,7 @@ jobs:
         run: cd task && npm install && npm run start
         env:
           # GH_TOKEN: ${{ secrets.GH_CLI_TOKEN }}
-          # GH_TOKEN: ${{ github.token }}
+          # GH_TOKEN: ${{ github.token }} # this throws an error even with write-all permissions
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
           FORCE_COLOR: 3
           TEST: true
