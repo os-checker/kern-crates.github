@@ -1,5 +1,6 @@
 kern-crates/.github
 kern-crates/docs
 kern-crates/testing
+kern-crates/kern-crates.github.io
 os-checker/docs
-os-checker/kern-crates.github.io
+os-checker/os-checker.github.io

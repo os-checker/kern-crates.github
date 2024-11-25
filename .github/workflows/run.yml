@@ -6,7 +6,6 @@ on:
   push:
     branches:
       - main
-      - refactor
   workflow_dispatch:
 
 env:
@@ -27,10 +26,12 @@ jobs:
 
       - name: Upload repo_list JSONs
         env:
-          tag: v0.2.0
+          tag: v0.2.1
           files: repo_list.json repo_list_raw.json
         run: |
           cd task
           ls -alh
+          # create the tag if not exists
+          gh release create ${{ env.tag }} --generate-notes --latest -R kern-crates/.github || true 
           gh release upload ${{ env.tag }} --clobber -R kern-crates/.github ${{ env.files }}
           echo ${{ env.files }} "uploaded."
