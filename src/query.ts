@@ -26,14 +26,16 @@ export const repos = `query ($login: String!, $num: Int = 100, $cursor: String) 
 }`;
 
 export type Repos = {
-  repositoryOwner: {
-    repositories: {
-      totalCount: number,
-      nodes: {
-        name: string,
-        parent: null | { owner: { login: string }, name: string }
-      }[]
-    }
-  }
+  repositoryOwner: RepositoryOwner
 };
+
+export type RepositoryOwner = {
+  repositories: {
+    totalCount: number,
+    nodes: {
+      name: string,
+      parent: null | { owner: { login: string }, name: string }
+    }[]
+  }
+}
 
