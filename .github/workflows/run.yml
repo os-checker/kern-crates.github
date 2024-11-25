@@ -17,4 +17,5 @@ jobs:
         env:
           # GH_TOKEN: ${{ secrets.GH_CLI_TOKEN }}
           GH_TOKEN: ${{ github.token }}
-
+          FORCE_COLOR: 3
+          TEST: true
