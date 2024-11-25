@@ -68,19 +68,24 @@ function do_sync(owned: UserRepo) {
   // Sync remote fork from its parent
   // src: https://cli.github.com/manual/gh_repo_sync
   const cmd = `gh repo sync ${owned.user}/${owned.repo}`;
-  console.time(cmd);
-  log(`[exec] ${cmd}`);
-  // exec(cmd, (error, stdout, stderr) => handleExecOutput(cmd, error, stdout, stderr));
-  console.timeEnd(cmd);
+  do_(cmd);
 }
 
 function do_fork(owner: string, outer: UserRepo) {
   // gh repo fork non_owned --org kern-crates --default-branch-only
   // src: https://cli.github.com/manual/gh_repo_fork
   const cmd = `gh repo fork ${outer.user}/${outer.repo} --org ${owner} --default-branch-only`;
+  do_(cmd);
+}
+
+function do_(cmd: string) {
   console.time(cmd);
-  log(`[exec] ${cmd}`);
-  // exec(cmd, (error, stdout, stderr) => handleExecOutput(cmd, error, stdout, stderr));
+  if (process.env.EXECUTE === "true") {
+    log(`[real exec] ${cmd}`);
+    exec(cmd, (error, stdout, stderr) => handleExecOutput(cmd, error, stdout, stderr));
+  } else {
+    log(`[fake exec] ${cmd}`);
+  }
   console.timeEnd(cmd);
 }
 
