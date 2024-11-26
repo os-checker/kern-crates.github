@@ -3,7 +3,7 @@ import { log } from "node:console";
 import * as query from "./query.ts";
 import { writeFileSync } from "node:fs";
 import { gen_owned_repos, sync_or_fork } from "./types.ts";
-import { read_exclude_list, read_sync_list } from "./sync_list.ts";
+import { read_exclude_list, read_sync_list } from "./read_list.ts";
 
 async function main() {
 
@@ -20,7 +20,6 @@ async function main() {
   } = await octokit.graphql<{
     viewer: { login: string }
   }>(`{ viewer { login } }`);
-
   log("login:", login);
 
   const owner = "kern-crates";
