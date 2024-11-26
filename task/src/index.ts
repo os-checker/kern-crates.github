@@ -30,10 +30,11 @@ async function main() {
 
   const owned_repos = gen_owned_repos(owner, repositoryOwner);
 
-  const repo_list = sync_or_fork(sync_list, exclude_list, owned_repos, owner);
-  log("\nrepo_list.length =", repo_list.length);
+  const output = sync_or_fork(sync_list, exclude_list, owned_repos, owner);
+  log("\nrepo_list.length =", output.repo_list.length);
 
-  writeFileSync("repo_list.json", JSON.stringify(repo_list, null, 2));
+  writeFileSync("repo_list.json", JSON.stringify(output.repo_list, null, 2));
+  writeFileSync("os-checker_config.json", JSON.stringify(output.os_checker_config, null, 2));
   writeFileSync("repo_list_raw.json", JSON.stringify({ sync_list, exclude_list, owner, owned_repos }, null, 2));
 
 }

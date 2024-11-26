@@ -3,6 +3,11 @@ import { log } from "console";
 import { execSync } from "child_process";
 import { OwnedRepo, UserRepo, to_string } from "./types.ts";
 
+export type Output = {
+  repo_list: string[],
+  os_checker_config: { [key: string]: {} },
+};
+
 /**
  * any non_owned matches against repo_in_sync_list => need syncing
  * all non_owned don't match against repo_in_sync_list: UserRepo => need forking
@@ -11,7 +16,7 @@ import { OwnedRepo, UserRepo, to_string } from "./types.ts";
  * 1. 当仓库是 forked 产生的，那么仓库名称指向父仓库，而不是 kern-crates
  * 2. 该列表排除了来自 exclude_list.txt 中的仓库；由于上一条，对于 forked 仓库，exclude_list 应指定为它的父仓库
  */
-export function sync_or_fork(sync_list: UserRepo[], exclude_list: UserRepo[], owned_repos: OwnedRepo[], owner: string) {
+export function sync_or_fork(sync_list: UserRepo[], exclude_list: UserRepo[], owned_repos: OwnedRepo[], owner: string): Output {
   const non_onwed = owned_repos.map(val => val.non_owned);
   let repos: string[] = [];
 
@@ -54,11 +59,16 @@ export function sync_or_fork(sync_list: UserRepo[], exclude_list: UserRepo[], ow
   let set = new Set(repos);
 
   // remove repos from exclude_list
-  for (const exclude of exclude_list) {
+  for (const exclude of exclude_list)
     set.delete(to_string(exclude));
-  }
 
-  return [...set].sort();
+  const repo_list = [...set].sort();
+
+  // generate os-checker config 
+  let config: { [key: string]: {} } = {};
+  for (const repo of repo_list) config[repo] = {};
+
+  return { repo_list, os_checker_config: config };
 }
 
 function do_sync(owned: UserRepo, target: string) {
