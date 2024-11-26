@@ -24,14 +24,14 @@ export function sync_or_fork(sync_list: UserRepo[], exclude_list: UserRepo[], ow
       if (do_fork(owner, outer, repo_name)) {
         repos.push(repo_name);
       } else {
-        throw new Error(chalk.bgRed(`${repo_name} is not forked.`));
+        throw_err(`${repo_name} is not forked.`);
       }
     } else {
       // need syncing
       if (do_sync(owned_repos[pos].owned, repo_name)) {
         repos.push(repo_name);
       } else {
-        throw new Error(chalk.bgRed(`${repo_name} is not synced.`));
+        throw_err(`${repo_name} is not synced.`);
       }
     }
   }
@@ -111,4 +111,8 @@ function handleExecOutput(cmd: string, error: any, stdout: string, stderr: strin
   } else if (stderr) {
     console.error(`${cmd} [stderr]: ${stderr}`);
   }
+}
+
+function throw_err(err: string) {
+  throw new Error(chalk.white(chalk.bgRed(err)));
 }
