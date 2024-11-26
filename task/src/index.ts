@@ -1,8 +1,9 @@
 import { Octokit } from "octokit";
 import { log } from "node:console";
-import * as query from "./query.ts";
 import { writeFileSync } from "node:fs";
-import { gen_owned_repos, sync_or_fork } from "./types.ts";
+import * as query from "./query.ts";
+import { sync_or_fork } from "./gh.ts";
+import { gen_owned_repos } from "./types.ts";
 import { read_exclude_list, read_sync_list } from "./read_list.ts";
 
 async function main() {
