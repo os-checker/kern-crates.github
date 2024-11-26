@@ -27,7 +27,7 @@ jobs:
       - name: Upload repo_list JSONs
         env:
           tag: v0.2.1
-          files: repo_list.json repo_list_raw.json
+          files: repo_list.json repo_list_raw.json os-checker_config.json
         run: |
           cd task
           ls -alh

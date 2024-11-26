@@ -1,9 +1,10 @@
 import { Octokit } from "octokit";
 import { log } from "node:console";
-import * as query from "./query.ts";
 import { writeFileSync } from "node:fs";
-import { gen_owned_repos, sync_or_fork } from "./types.ts";
-import { read_exclude_list, read_sync_list } from "./sync_list.ts";
+import * as query from "./query.ts";
+import { gen_output, sync_or_fork } from "./gh.ts";
+import { gen_owned_repos } from "./types.ts";
+import { read_exclude_list, read_sync_list } from "./read_list.ts";
 
 async function main() {
 
@@ -20,7 +21,6 @@ async function main() {
   } = await octokit.graphql<{
     viewer: { login: string }
   }>(`{ viewer { login } }`);
-
   log("login:", login);
 
   const owner = "kern-crates";
@@ -30,10 +30,13 @@ async function main() {
 
   const owned_repos = gen_owned_repos(owner, repositoryOwner);
 
-  const repo_list = sync_or_fork(sync_list, exclude_list, owned_repos, owner);
-  log("\nrepo_list.length =", repo_list.length);
+  const repos = sync_or_fork(sync_list, exclude_list, owned_repos, owner);
 
-  writeFileSync("repo_list.json", JSON.stringify(repo_list, null, 2));
+  const output = gen_output(repos, owned_repos, exclude_list);
+  log("\nrepo_list.length =", output.repo_list.length);
+
+  writeFileSync("repo_list.json", JSON.stringify(output.repo_list, null, 2));
+  writeFileSync("os-checker_config.json", JSON.stringify(output.os_checker_config, null, 2));
   writeFileSync("repo_list_raw.json", JSON.stringify({ sync_list, exclude_list, owner, owned_repos }, null, 2));
 
 }
