@@ -12,11 +12,12 @@ export type Output = {
  * any non_owned matches against repo_in_sync_list => need syncing
  * all non_owned don't match against repo_in_sync_list: UserRepo => need forking
  *
- * 返回值为一个字符串数组，它为 kern-crates 组织中的所有仓库名称，按照 `user/repo` 格式，但注意：
- * 1. 当仓库是 forked 产生的，那么仓库名称指向父仓库，而不是 kern-crates
- * 2. 该列表排除了来自 exclude_list.txt 中的仓库；由于上一条，对于 forked 仓库，exclude_list 应指定为它的父仓库
+ * 返回值为一个字符串数组，它代表 fork 或者 sync 成功的仓库清单。
+ *
+ * 该函数在执行 fork 或者 sync 命令过程中出现错误，会抛出错误，不再往后运行；
+ * 因此该清单的每个仓库保证完成了相应的操作。
  */
-export function sync_or_fork(sync_list: UserRepo[], exclude_list: UserRepo[], owned_repos: OwnedRepo[], owner: string): Output {
+export function sync_or_fork(sync_list: UserRepo[], exclude_list: UserRepo[], owned_repos: OwnedRepo[], owner: string): string[] {
   const non_onwed = owned_repos.map(val => val.non_owned);
   let repos: string[] = [];
 
@@ -47,6 +48,19 @@ export function sync_or_fork(sync_list: UserRepo[], exclude_list: UserRepo[], ow
   // 如果仓库不再处于 sync_list，那么有理由认为处于某种原因不 sync 它 —— 因此不处理是合理的。
   // 如果意外把一个仓库从 sync_list 中移除了，把它添加回 sync_list 即可。
 
+  return repos;
+}
+
+/**
+ * 返回值：
+ *
+ * repo_list 为一个字符串数组，它为 kern-crates 组织中的所有仓库名称，按照 `user/repo` 格式，但注意：
+ * 1. 当仓库是 forked 产生的，那么仓库名称指向父仓库，而不是 kern-crates
+ * 2. 该列表排除了来自 exclude_list.txt 中的仓库；由于上一条，对于 forked 仓库，exclude_list 应指定为它的父仓库
+ *
+ * os_checker_config 是一个 object，为 os-checker 所需的 JSON 配置文件。
+ */
+export function gen_output(repos: string[], owned_repos: OwnedRepo[], exclude_list: UserRepo[]): Output {
   // generate source repo list
   for (const repo of owned_repos) {
     if (repo.non_owned) {
@@ -65,7 +79,7 @@ export function sync_or_fork(sync_list: UserRepo[], exclude_list: UserRepo[], ow
   const repo_list = [...set].sort();
 
   // generate os-checker config 
-  let config: { [key: string]: {} } = {};
+  let config: { [key: string]: {}; } = {};
   for (const repo of repo_list) config[repo] = {};
 
   return { repo_list, os_checker_config: config };
