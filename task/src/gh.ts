@@ -88,7 +88,7 @@ export function gen_output(repos: string[], owned_repos: OwnedRepo[], exclude_li
 function do_sync(owned: UserRepo, target: string) {
   // Sync remote fork from its parent
   // src: https://cli.github.com/manual/gh_repo_sync
-  const cmd = `gh repo sync ${owned.user}/${owned.repo}`;
+  const cmd = `gh repo sync ${owned.user}/${owned.repo} --force`;
   return do_(cmd, target);
 }
 
