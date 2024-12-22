@@ -3,5 +3,6 @@ kern-crates/docs
 kern-crates/testing
 kern-crates/test-test-repo
 kern-crates/kern-crates.github.io
+rcore-os/libc-test
 os-checker/docs
 os-checker/os-checker.github.io
